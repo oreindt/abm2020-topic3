@@ -38,12 +38,12 @@ args = parse_args(s)
 
 # setup and run
 sim = setup_sim(p=args["p"], N=args["n"], p_c=args["c"], n_inf=args["k"], b=args["b"], seed=args["r"])
-knowing, avg_belief = run_sim(sim, args["s"])
+knowing, pos, neg, mid, avg_belief, abs_avgs = run_sim(sim, args["s"])
 
 # write the observation to csv files
 using DelimitedFiles
 times = 1:args["s"]
-data = [times knowing avg_belief]
-header = ["time" "knowing" "avg_belief"]
+data = [times knowing pos neg mid avg_belief abs_avgs]
+header = ["time" "knowing" "highly pos" "highly neg" "mid" "avg belief" "abs average"]
 mkpath("results")
 writedlm("results/output.csv", [header; data], ',')

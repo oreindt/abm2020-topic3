@@ -28,15 +28,26 @@ end
 function update!(person, sim)
     if person.know && rand() < sim.p
         other = rand(person.contacts)
-        if other.know
-            other.belief = (person.belief + other.belief) * 0.5
-        else
-            other.know = true
-            other.belief = person.belief * 0.9 
+        other.know = true
+        if sign(person.belief) == sign(other.belief) || mid_belief(other)
+            other.belief = (person.belief + other.belief) / 2
         end
-        
     end
 end
+
+function very_pos(person)
+    person.belief > 1/3
+end 
+
+function very_neg(person)
+    person.belief < -1/3
+end 
+
+function mid_belief(person)
+    !very_pos(person) && !very_neg(person)
+end 
+
+
 
 function update_agents!(sim)
     # we need to change the order, otherwise agents at the beginning of the 
