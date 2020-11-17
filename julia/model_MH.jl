@@ -31,6 +31,7 @@ function update!(person, sim)
 # Added code here
         if other.know && other.belief < 0.5*person.belief
 		other.belief = other.belief
+	end
 	if other.know && other.belief >= 0.5*person.belief
             other.belief = (person.belief + other.belief) * 0.5
         else
