@@ -31,8 +31,12 @@ function update!(person, sim)
 # Added code here
         if other.know && other.belief < 0.5*person.belief
 		other.belief = other.belief
+       else
+            other.know = true
+            other.belief = person.belief * 0.9 
         end
-        if other.know && other.belief >= 0.5*person.belief
+
+	if other.know && other.belief >= 0.5*person.belief
             other.belief = (person.belief + other.belief) * 0.5
         else
             other.know = true
@@ -50,4 +54,4 @@ function update_agents!(sim)
     for p in order
         update!(p, sim)
     end
-end  
+end
