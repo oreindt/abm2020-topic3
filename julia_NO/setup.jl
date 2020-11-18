@@ -36,7 +36,10 @@ function  setup_sim(;p, N, p_c, n_inf, b, seed)
         # one percent of agents are infected
         sim.pop[i].know = true
         sim.pop[i].belief = b
-        sim.pop[i].info = economy
+        # sim.pop[i].info = Information(economy)
+        # OR: info is a Vector, not a single Information (therefore the push)
+        # OR: and info is of type Information, so you need to create an information object
+        push!(sim.pop[i].info, Information(economy)) 
     end
     
     sim

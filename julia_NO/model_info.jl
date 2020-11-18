@@ -1,5 +1,17 @@
 using Random
 
+# OR: moved this to the fron
+# all possible dimensions of a piece of information
+@enum Dimensions economy welfare
+
+# this is a information type
+# What dimension the person is looking at the information
+mutable struct Information
+    # model parameters:
+    # TODO: how about changing the probability of this?
+    dim :: Dimensions
+end
+
 # this is our agent type
 mutable struct SimplePerson
     # state
@@ -8,12 +20,13 @@ mutable struct SimplePerson
     # other agents this one can infect or be infected by
     contacts :: Vector{SimplePerson}
     # What dimension the person is looking at the information
-    info :: Vector(Information)
+    info :: Vector{Information} # OR: braces instead of parens
 end
 
 # how we construct a person object
-SimplePerson(belief, know, info) = SimplePerson(belief, know, info, [])
-if 
+SimplePerson(belief, know) = SimplePerson(belief, know, [], []) # OR: the two parameter version is still used in the setup
+SimplePerson(belief, know, info) = SimplePerson(belief, know, [], info) # OR: this had the last two parameters in the wrong order (must be the same as in the definition)
+
 # this is a parametric type
 # we can specify which type AGENT is going to be replaced with
 # when constructing our Simulation
@@ -24,17 +37,6 @@ mutable struct Simulation{AGENT}
 
     # and this is our population of agents
     pop :: Vector{AGENT}
-end
-
-# all possible dimensions of a piece of information
-@enum Dimensions economy welfare
-
-# this is a information type
-# What dimension the person is looking at the information
-mutable struct Information
-    # model parameters:
-    # TODO: how about changing the probability of this?
-    dim :: Dimensions
 end
 
 # update an agent
