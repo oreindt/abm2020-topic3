@@ -29,11 +29,11 @@ function update!(person, sim)
     if person.know && rand() < sim.p
         other = rand(person.contacts)
 # Added code here
-#if other.know && other.belief < 0.5*person.belief
+#if other.know && sqrt( (person.belief - other.belief)^2 ) < = 1/4
 #other.belief = other.belief
-#elseif other.know && other.belief >= 0.5*person.belief
+#elseif other.know && sqrt( (person.belief - other.belief)^2 ) > 1/4
+#other.belief = (person.belief + other.belief)*0.5
 
-#Final code
 	if other.know && person.belief >= 1/3 ||  person.belief <= 2/3
             other.belief = other.belief
 	elseif other.know && person.belief < 1/3  ||  person.belief > 2/3
