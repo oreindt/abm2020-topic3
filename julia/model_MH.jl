@@ -33,6 +33,11 @@ function update!(person, sim)
 #other.belief = other.belief
 #elseif other.know && sqrt( (person.belief - other.belief)^2 ) > 1/4
 #other.belief = (person.belief + other.belief)*0.5
+		
+#if other.know && other.belief < 1/4 || other.belief > 3/4
+#other.belief = other.belief
+#elseif other.know && other.belief >= 1/4 || other.belief <= 3/4
+#other.belief = (person.belief + other.belief)*0.5
 
 	if other.know && person.belief >= 1/3 ||  person.belief <= 2/3
             other.belief = other.belief
